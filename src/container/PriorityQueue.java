@@ -1,107 +1,121 @@
 /**
- * Copyright 2020 jingedawang
+ * Copyright 2022 jingedawang
  */
 package container;
 
 /**
- * <h3>Priority queue implemented by heap</h3>
+ * Priority queue implemented by heap.
  */
-public class PriorityQueue {
+public class PriorityQueue implements Queue {
 
 	/**
-	 * Test code.
+	 * Demo code.
 	 */
 	public static void main(String[] args) {
-		PriorityQueue priorityQueue = new PriorityQueue();
-		priorityQueue.insert(3);
-		priorityQueue.insert(6);
-		priorityQueue.insert(1);
-		priorityQueue.insert(5);
-		priorityQueue.insert(2);
-		priorityQueue.insert(4);
-		System.out.println(priorityQueue.extractMax());
-		System.out.println(priorityQueue.extractMax());
-		System.out.println(priorityQueue.extractMax());
-		priorityQueue.insert(10);
-		System.out.println(priorityQueue.extractMax());
-		System.out.println(priorityQueue.extractMax());
-		System.out.println(priorityQueue.extractMax());
-		System.out.println(priorityQueue.extractMax());
+		System.out.println("Create a PriorityQueue with initial values [3, 6, 1].");
+		PriorityQueue priorityQueue = new PriorityQueue(new int[] {3, 6, 1});
+		System.out.println("Push 5 into the queue.");
+		priorityQueue.push(5);
+		System.out.println("Push 2 into the queue.");
+		priorityQueue.push(2);
+		System.out.println("Push 4 into the queue.");
+		priorityQueue.push(4);
+		System.out.println("Pop the front value of the queue: " + priorityQueue.pop());
+		System.out.println("Pop the front value of the queue: " + priorityQueue.pop());
+		System.out.println("Pop the front value of the queue: " + priorityQueue.pop());
+		System.out.println("Push 10 into the queue.");
+		priorityQueue.push(10);
+		System.out.println("Get the front value of the queue: " + priorityQueue.front());
+		System.out.println("Pop the front value of the queue: " + priorityQueue.pop());
+		System.out.println("Pop the front value of the queue: " + priorityQueue.pop());
+		System.out.println("Pop the front value of the queue: " + priorityQueue.pop());
+		System.out.println("Pop the front value of the queue: " + priorityQueue.pop());
 	}
 
 	/**
-	 * Insert a value into priority queue.
-	 *
-	 * @param x The value to be inserted.
+	 * Construct an empty priority queue.
 	 */
-	public void insert(int x) {
-		if (heap.size >= heap.capacity) {
-			int[] newArr;
-			if (heap.capacity > 0) {
-				newArr = new int[heap.capacity * 2];
-				System.arraycopy(heap.data, 0, newArr, 0, heap.size);
-			} else {
-				newArr = new int[8];
-			}
-			heap.data = newArr;
-			heap.capacity = newArr.length;
-		}
-		heap.size++;
-		heap.data[heap.size - 1] = Integer.MIN_VALUE;
-		increaseKey(heap.size - 1, x);
+	public PriorityQueue() {
+		heap = new BinaryHeap();
 	}
 
 	/**
-	 * Get the maximum value of the priority queue.
+	 * Construct a priority queue with given array.
 	 *
-	 * @return The maximum value of the priority queue.
+	 * @param arr The data array to be pushed into the priority queue in order.
 	 */
-	public int maximum() {
-		if (heap.size <= 0) {
+	public PriorityQueue(int[] arr) {
+		heap = new BinaryHeap(arr, false);
+	}
+
+	/**
+	 * Push a value into the priority queue.
+	 *
+	 * @param value The value to be pushed into the priority queue.
+	 */
+	@Override
+	public void push(int value) {
+		heap.insert(new Node(value));
+	}
+
+	/**
+	 * Get the value from the back of the queue.
+	 *
+	 * This method is not supported because it is based on heap.
+	 *
+	 * @return The value at the back.
+	 */
+	@Override
+	public int back() {
+		throw new UnsupportedOperationException("Get back value is not supported in PriorityQueue.");
+	}
+
+	/**
+	 * Get the highest priority item of the priority queue.
+	 *
+	 * @return The highest priority item of the priority queue.
+	 */
+	@Override
+	public int front() {
+		if (heap.size() <= 0) {
 			throw new ArrayIndexOutOfBoundsException("Can not get a value from an empty priority queue.");
 		}
-		return heap.data[0];
+		return heap.top();
 	}
 
 	/**
-	 * Extract the maximum value of the priority queue.
-	 * <p>
-	 * After the maximum value is extracted, the heap will shrink and reorganize.
+	 * Get and remove the highest priority item in the priority queue.
 	 *
-	 * @return The maximum value of the priority queue.
+	 * @return The highest priority item value.
 	 */
-	public int extractMax() {
-		if (heap.size <= 0) {
-			throw new ArrayIndexOutOfBoundsException("Can not extract a value from an empty priority queue.");
+	@Override
+	public int pop() {
+		if (heap.size() <= 0) {
+			throw new ArrayIndexOutOfBoundsException("Can not pop a value from an empty priority queue.");
 		}
-		int max = heap.data[0];
-		heap.data[0] = heap.data[heap.size - 1];
-		heap.size--;
-		heap.maxHeapify(0);
-		return max;
+		return heap.pop();
 	}
 
 	/**
-	 * Increase the value of the specified item.
-	 * <p>
-	 * The new value must be greater than the original value, or this method would raise an error.
+	 * Check if the queue has no elements.
 	 *
-	 * @param i The index of the specified item.
-	 * @param k The new value of the specified item.
+	 * @return {@code true} if the queue has no elements, {@code false} otherwise.
 	 */
-	public void increaseKey(int i, int k) {
-		if (k < heap.data[i]) {
-			throw new IllegalArgumentException("k must be greater than the item of index i.");
-		}
-		heap.data[i] = k;
-		while (i > 0 && heap.data[i] > heap.data[heap.parent(i)]) {
-			int temp = heap.data[i];
-			heap.data[i] = heap.data[heap.parent(i)];
-			heap.data[heap.parent(i)] = temp;
-			i = heap.parent(i);
-		}
+	@Override
+	public boolean empty() {
+		return heap.empty();
 	}
 
-	private final Heap heap = new Heap();
+	/**
+	 * Get the size of the queue.
+	 *
+	 * @return The size of the queue.
+	 */
+	@Override
+	public int size() {
+		return heap.size();
+	}
+
+	private final BinaryHeap heap;
 
 }

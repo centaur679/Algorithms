@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 jingedawang
+ * Copyright 2022 jingedawang
  */
 package matrix;
 
@@ -8,7 +8,7 @@ import utils.MatrixGenerator;
 import utils.TimeRecorder;
 
 /**
- * <h3>Matrix multiplier interface</h3>
+ * Matrix multiplier interface
  */
 public interface MatrixMultiplier {
 
@@ -17,22 +17,21 @@ public interface MatrixMultiplier {
 	 */
 	static void main(String[] args) {
 
-		for (int n = 0; n < 12; n++) {
-			Matrix A = MatrixGenerator.generateRandomMatrix(1 << n);
-			Matrix B = MatrixGenerator.generateRandomMatrix(1 << n);
+		for (int n = 0; n < 11; n++) {
+			Matrix<Double> A = MatrixGenerator.generateRandomDoubleMatrix(1 << n);
+			Matrix<Double> B = MatrixGenerator.generateRandomDoubleMatrix(1 << n);
 
-			TimeRecorder timeRecorder = new TimeRecorder();
-			timeRecorder.start();
-			Matrix plainC = A.multiply(B, MultiplierType.PLAIN);
-			timeRecorder.stop();
-			System.out.print(n + " x " + n + ": plain: ");
-			timeRecorder.showElapsedTime();
+			TimeRecorder timeRecorderPlain = new TimeRecorder(n + " x " + n + " plain");
+			timeRecorderPlain.start();
+			A.multiply(B, MultiplierType.PLAIN);
+			timeRecorderPlain.stop();
+			timeRecorderPlain.print();
 
-			timeRecorder.start();
-			Matrix strassenC = A.multiply(B, MultiplierType.STRASSEN);
-			timeRecorder.stop();
-			System.out.print(n + " x " + n + ": strassen: ");
-			timeRecorder.showElapsedTime();
+			TimeRecorder timeRecorderStrassen = new TimeRecorder(n + " x " + n + " strassen");
+			timeRecorderStrassen.start();
+			A.multiply(B, MultiplierType.STRASSEN);
+			timeRecorderStrassen.stop();
+			timeRecorderStrassen.print();
 		}
 
 	}
@@ -42,8 +41,9 @@ public interface MatrixMultiplier {
 	 *
 	 * @param A First operand of matrix multiplication.
 	 * @param B Second operand of matrix multiplication.
+	 * @param <T> The type of the underlying elements of the matrix to be multiplied.
 	 * @return The product of the matrix multiplication.
 	 */
-	public Matrix multiply(Matrix A, Matrix B);
+	<T extends Number> Matrix<T> multiply(Matrix<T> A, Matrix<T> B);
 
 }

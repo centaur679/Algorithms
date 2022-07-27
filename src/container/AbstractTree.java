@@ -1,31 +1,60 @@
 /**
- * Copyright 2020 jingedawang
+ * Copyright 2022 jingedawang
  */
 package container;
 
 /**
- * <h3>The abstract class of tree</h3>
+ * Abstract base class for all kinds of trees.
  * <p>
- * Some general methods are implemented here.
+ * Some implementations of general methods of trees are provided here.
  */
-public class AbstractTree implements Tree, Cloneable {
+public abstract class AbstractTree implements Tree, Cloneable {
 
 	/**
-	 * Clone this tree.
+	 * Checks if the tree is empty.
 	 *
-	 * @return A copy of this tree.
+	 * @return {@code true} if the tree has no elements, {@code false} otherwise.
 	 */
 	@Override
-	protected AbstractTree clone() {
-		AbstractTree tree;
-		try {
-			tree = (AbstractTree) super.clone();
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-			throw new AssertionError();
+	public boolean empty() {
+		return root == null;
+	}
+
+	/**
+	 * Get the size of the tree.
+	 *
+	 * @return The element count of the tree.
+	 */
+	@Override
+	public int size() {
+		if (root == null) {
+			return 0;
 		}
-		tree.root = root.clone();
-		return tree;
+		return subtreeSize(root);
+	}
+
+	/**
+	 * Get the size of the subtree.
+	 *
+	 * @param root The root of the subtree.
+	 * @return The size of the subtree.
+	 */
+	protected int subtreeSize(Node root) {
+		if (root == null) {
+			return 0;
+		}
+		int size = 1;
+		if (root.values != null) {
+			size = root.numberOfValues;
+		}
+		size += subtreeSize(root.left);
+		size += subtreeSize(root.right);
+		if (root.children != null) {
+			for (int i = 0; i <= root.numberOfValues; i++) {
+				size += subtreeSize(root.children[i]);
+			}
+		}
+		return size;
 	}
 
 	/**
@@ -49,6 +78,24 @@ public class AbstractTree implements Tree, Cloneable {
 	}
 
 	/**
+	 * Clone this tree.
+	 *
+	 * @return A copy of this tree.
+	 */
+	@Override
+	protected AbstractTree clone() {
+		AbstractTree tree;
+		try {
+			tree = (AbstractTree) super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+			throw new AssertionError();
+		}
+		tree.root = root.clone();
+		return tree;
+	}
+
+	/**
 	 * Compute the height of the tree in a recursive way.
 	 *
 	 * @param root The root of the tree.
@@ -58,7 +105,11 @@ public class AbstractTree implements Tree, Cloneable {
 		if (root == null) {
 			return 0;
 		}
+
+		// For binary tree
 		int maxSubtreeHeight = Math.max(computeHeight(root.left), computeHeight(root.right));
+
+		// For B-tree
 		if (root.children != null) {
 			for (int i = 0; i < root.children.length; i++) {
 				int ithHeight = computeHeight(root.children[i]);
@@ -67,6 +118,7 @@ public class AbstractTree implements Tree, Cloneable {
 				}
 			}
 		}
+
 		return 1 + maxSubtreeHeight;
 	}
 

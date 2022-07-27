@@ -1,5 +1,11 @@
 # Algorithms
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![build](https://github.com/jingedawang/Algorithms/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/jingedawang/Algorithms/actions/workflows/build.yml)
+[![check-url](https://github.com/jingedawang/Algorithms/workflows/Url/badge.svg?branch=master)](https://github.com/jingedawang/Algorithms/actions/workflows/check-url.yml)
+[![codecov](https://codecov.io/gh/jingedawang/Algorithms/branch/master/graph/badge.svg?token=01G6F59X5L)](https://codecov.io/gh/jingedawang/Algorithms)
+[![Gitpod](https://img.shields.io/badge/Gitpod-ready--to--code-FFB45B?logo=gitpod)](https://gitpod.io/#https://github.com/jingedawang/Algorithms)
+
 Welcome to the world of **Algorithms**.
 
 This repository provides commonly used algorithms according to *Introduction to Algorithms*.
@@ -18,7 +24,9 @@ Just run it, the core principle will flash on you at once.
 
 ### Quick Start
 
-You can use either Intellij IDEA or Gradle to build and test the code.
+We support Gitpod as online coding platform, you can try it [here](https://gitpod.io/#https://github.com/jingedawang/Algorithms).
+
+You can use either Intellij IDEA or Gradle to build and test the code locally. But you can only use Gradle as build tool online since Gitpod is using VSCode.
 
 #### Intellij IDEA
 
@@ -33,7 +41,7 @@ To run all tests, please right-click the `test` folder from the Project window, 
 
 #### Gradle
 
-If you don't have Intellij IDEA installed, it's also convenient to build and test with Gradle.
+If you don't have Intellij IDEA installed or if you are using Gitpod, it's also convenient to build and test with Gradle.
 You don't need to have Gradle installed, `gradlew` script will download a proper version for you
 during the first run.
 
@@ -61,17 +69,22 @@ Except for code, you can click the `book` and `blog` links for more information.
       [`blog`](https://www.jianshu.com/p/b1ab4a170c3c)
     + [LRUCacheSimple](https://github.com/jingedawang/Algorithms/blob/master/src/cache/LRUCacheSimple.java)
 + [Container](https://github.com/jingedawang/Algorithms/tree/master/src/container)
+    + [BinaryHeap](https://github.com/jingedawang/Algorithms/blob/master/src/container/BinaryHeap.java)
+      [`book`](https://edutechlearners.com/download/Introduction_to_algorithms-3rd%20Edition.pdf#page=172)
+    + [BinarySearchTree](https://github.com/jingedawang/Algorithms/blob/master/src/container/BinarySearchTree.java)
+      [`book`](https://edutechlearners.com/download/Introduction_to_algorithms-3rd%20Edition.pdf#page=307)
     + [BTree](https://github.com/jingedawang/Algorithms/blob/master/src/container/BTree.java)
       [`book`](https://edutechlearners.com/download/Introduction_to_algorithms-3rd%20Edition.pdf#page=505)
       [`blog`](https://zhuanlan.zhihu.com/p/342999669)
-    + [BinarySearchTree](https://github.com/jingedawang/Algorithms/blob/master/src/container/BinarySearchTree.java)
-      [`book`](https://edutechlearners.com/download/Introduction_to_algorithms-3rd%20Edition.pdf#page=307)
-    + [Heap](https://github.com/jingedawang/Algorithms/blob/master/src/container/Heap.java)
-      [`book`](https://edutechlearners.com/download/Introduction_to_algorithms-3rd%20Edition.pdf#page=172)
+    + [FibonacciHeap](https://github.com/jingedawang/Algorithms/blob/master/src/container/FibonacciHeap.java)
+      [`book`](https://edutechlearners.com/download/Introduction_to_algorithms-3rd%20Edition.pdf#page=526)
     + [PriorityQueue](https://github.com/jingedawang/Algorithms/blob/master/src/container/PriorityQueue.java)
+      [`book`](https://edutechlearners.com/download/Introduction_to_algorithms-3rd%20Edition.pdf#page=183)
     + [RedBlackTree](https://github.com/jingedawang/Algorithms/blob/master/src/container/RedBlackTree.java)
       [`book`](https://edutechlearners.com/download/Introduction_to_algorithms-3rd%20Edition.pdf#page=329)
       [`blog`](https://zhuanlan.zhihu.com/p/335016486)
++ [Divide and Conquer](https://github.com/jingedawang/Algorithms/tree/master/src/divideandconquer)
+    + [FindMaximumSubarray](https://github.com/jingedawang/Algorithms/blob/master/src/divideandconquer/FindMaximumSubarray.java)
 + [Dynamic Programming](https://github.com/jingedawang/Algorithms/tree/master/src/dp)
     + [CutRod](https://github.com/jingedawang/Algorithms/blob/master/src/dp/CutRod.java)
       [`book`](https://edutechlearners.com/download/Introduction_to_algorithms-3rd%20Edition.pdf#page=381)
@@ -121,6 +134,10 @@ Except for code, you can click the `book` and `blog` links for more information.
       [`blog`](https://zhuanlan.zhihu.com/p/270158986)
     + [RandomizedQuickSort](https://github.com/jingedawang/Algorithms/blob/master/src/sort/RandomizedQuickSort.java)
       [`book`](https://edutechlearners.com/download/Introduction_to_algorithms-3rd%20Edition.pdf#page=200)
+
+### Contribute
+
+We highly encourage you to contribute to this project, especially if you are a beginner to algorithms. Read this [Contributing Guideline](https://github.com/jingedawang/Algorithms/blob/master/CONTRIBUTING.md) to learn more.
 
 ### Contact
 

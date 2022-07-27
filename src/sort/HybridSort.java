@@ -1,40 +1,47 @@
 /**
- * Copyright 2020 jingedawang
+ * Copyright 2022 jingedawang
  */
 package sort;
 
 import utils.ArrayGenerator;
+import utils.ArrayPrinter;
 import utils.TimeRecorder;
 
 /**
- * <h3>Hybrid sort algorithm</h3>
+ * Hybrid sort algorithm.
  * <p>
  * This algorithm combines merge sort and insertion sort to achieve a faster speed.
  */
 public class HybridSort extends MergeSort {
 
 	/**
-	 * Test code.
+	 * Demo code.
 	 */
 	public static void main(String[] args) {
-		int[] arr = ArrayGenerator.randomArray(100000, 10000000);
-		int[] arr2 = arr.clone();
-//		ArrayPrinter.print(arr);
+		int[] arrForHybridSort = ArrayGenerator.randomArray(100000, 10000000);
+		int[] arrForMergeSort = arrForHybridSort.clone();
+		System.out.println("Create a big array with 10000000 elements:");
+		ArrayPrinter.print(arrForHybridSort);
 
 		HybridSort sort = new HybridSort();
-		TimeRecorder timeRecorder = new TimeRecorder();
-		timeRecorder.start();
-		sort.sort(arr);
-		timeRecorder.stop();
-		timeRecorder.showElapsedTime();
+		TimeRecorder timeRecorder1 = new TimeRecorder();
+		timeRecorder1.start();
+		sort.sort(arrForHybridSort);
+		timeRecorder1.stop();
+		System.out.println();
+		System.out.println("Sorted by hybrid sort:");
+		ArrayPrinter.print(arrForHybridSort);
+		System.out.println("Hybrid sort used " + timeRecorder1.getElapsedTime() + "ms.");
 
 		MergeSort mergeSort = new MergeSort();
-		timeRecorder.start();
-		mergeSort.sort(arr2);
-		timeRecorder.stop();
-		timeRecorder.showElapsedTime();
-
-//		ArrayPrinter.print(arr);
+		TimeRecorder timeRecorder2 = new TimeRecorder();
+		timeRecorder2.start();
+		mergeSort.sort(arrForMergeSort);
+		timeRecorder2.stop();
+		System.out.println();
+		System.out.println("Sorted by merge sort:");
+		ArrayPrinter.print(arrForMergeSort);
+		System.out.println("Merge sort used " + timeRecorder2.getElapsedTime() + "ms.");
 	}
 
 	/**

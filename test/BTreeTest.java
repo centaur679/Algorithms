@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 jingedawang
+ * Copyright 2022 jingedawang
  */
 
 import container.BTree;
@@ -15,9 +15,21 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
- * <h3>Test class for {@link BTree}</h3>
+ * Test class for {@link BTree}.
  */
 public class BTreeTest {
+
+	@Test
+	void main() {
+		BTree.main(new String[]{});
+	}
+
+	@Test
+	void getHeight() {
+		int[] arr = ArrayGenerator.fixedArray();
+		BTree bTree = new BTree(arr);
+		Assertions.assertEquals(3, bTree.getHeight());
+	}
 
 	@Test
 	void nodeAssociate() {

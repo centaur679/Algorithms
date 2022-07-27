@@ -1,11 +1,13 @@
 /**
- * Copyright 2020 jingedawang
+ * Copyright 2022 jingedawang
  */
 package container;
 
+import java.util.LinkedList;
+
 /**
- * <h3>Node class for each element of search tree</h3>
- * <p>
+ * Node class for each element of search tree.
+ *
  * To support binary search tree and multi-branch search tree simultaneously, this class provides two ways to keep
  * children. The implementation class can either use left and right fields to represent binary search tree, or use
  * children field to represent multi-branch search tree. But they shouldn't be used together.
@@ -18,13 +20,6 @@ public class Node implements Cloneable {
 	public enum Color {
 		RED,
 		BLACK
-	}
-
-	/**
-	 * Default constructor.
-	 */
-	public Node() {
-
 	}
 
 	/**
@@ -69,48 +64,8 @@ public class Node implements Cloneable {
 		this.color = color;
 	}
 
-	/**
-	 * Clone this node.
-	 * <p>
-	 * Since we are conducting a deep copy, so the entire tree under this node will be cloned.
-	 *
-	 * @return A copy of this node.
-	 */
-	@Override
-	protected Node clone() {
-		Node node;
-		try {
-			node = (Node) super.clone();
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-			throw new AssertionError();
-		}
-		if (left != null) {
-			node.left = left.clone();
-			if (left.parent != null) {
-				node.left.parent = node;
-			}
-		}
-		if (right != null) {
-			node.right = right.clone();
-			if (right.parent != null) {
-				node.right.parent = node;
-			}
-		}
-		if (values != null) {
-			node.values = values.clone();
-		}
-		if (children != null) {
-			node.children = new Node[children.length];
-			for (int i = 0; i < children.length; i++) {
-				node.children[i] = children[i].clone();
-			}
-		}
-		return node;
-	}
-
 	///
-	/// Fields for binary search tree and red-black tree.
+	/// Fields for binary search tree.
 	///
 
 	/**
@@ -132,6 +87,10 @@ public class Node implements Cloneable {
 	 * The right child of the node.
 	 */
 	public Node right;
+
+	///
+	/// Fields for red-black tree.
+	///
 
 	/**
 	 * The color of the node, either red or black.
@@ -171,5 +130,66 @@ public class Node implements Cloneable {
 	 * Flag indicating whether this node is leaf node or not.
 	 */
 	public boolean isLeaf;
+
+	///
+	/// Fields for fibonacci heap.
+	///
+
+	/**
+	 * The number of the children of this node.
+	 */
+	public int degree;
+
+	/**
+	 * Flag indicates whether this node has lost children since it was placed to current position.
+	 */
+	public boolean marked;
+
+	/**
+	 * The children list of the node.
+	 *
+	 * In fibonacci heap, we use a linked list to accelerate the modification for children.
+	 */
+	public LinkedList<Node> childrenList;
+	
+	/**
+	 * Clone this node.
+	 * <p>
+	 * Since we are conducting a deep copy, so the entire tree under this node will be cloned.
+	 *
+	 * @return A copy of this node.
+	 */
+	@Override
+	protected Node clone() {
+		Node node;
+		try {
+			node = (Node) super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+			throw new AssertionError();
+		}
+		if (left != null) {
+			node.left = left.clone();
+			if (left.parent != null) {
+				node.left.parent = node;
+			}
+		}
+		if (right != null) {
+			node.right = right.clone();
+			if (right.parent != null) {
+				node.right.parent = node;
+			}
+		}
+		if (values != null) {
+			node.values = values.clone();
+		}
+		if (children != null) {
+			node.children = new Node[children.length];
+			for (int i = 0; i < children.length; i++) {
+				node.children[i] = children[i].clone();
+			}
+		}
+		return node;
+	}
 
 }

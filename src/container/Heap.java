@@ -1,140 +1,41 @@
 /**
- * Copyright 2020 jingedawang
+ * Copyright 2022 jingedawang
  */
 package container;
 
 /**
- * <h3>Heap data structure</h3>
+ * Interface for heap.
+ *
+ * A heap is a data structure which could easily access and extract values from its top.
  */
-public class Heap {
+public interface Heap extends Container {
 
 	/**
-	 * Build a maximum heap using given array.
+	 * Get the top value of the heap.
 	 *
-	 * @param arr The array used for initializing the heap.
-	 * @return The heap built.
+	 * @return The top value of the heap.
 	 */
-	public static Heap buildMaxHeap(int[] arr) {
-		Heap heap = new Heap();
-		heap.data = arr;
-		heap.capacity = arr.length;
-		heap.size = arr.length;
-		for (int i = heap.size / 2 - 1; i >= 0; i--) {
-			heap.maxHeapify(i);
-		}
-		return heap;
-	}
+	int top();
 
 	/**
-	 * Build a minimum heap using given array.
+	 * Get and remove the top value of the heap.
 	 *
-	 * @param arr The array used for initializing the heap.
-	 * @return The heap built.
+	 * @return The top value of the heap.
 	 */
-	public static Heap buildMinHeap(int[] arr) {
-		Heap heap = new Heap();
-		heap.data = arr;
-		heap.capacity = arr.length;
-		heap.size = arr.length;
-		for (int i = heap.size / 2 - 1; i >= 0; i--) {
-			heap.minHeapify(i);
-		}
-		return heap;
-	}
+	int pop();
 
 	/**
-	 * Adjust the maximum sub-heap to maintain its properties.
+	 * Insert a node into the heap.
 	 *
-	 * @param i The root index of the sub-heap.
+	 * @param newNode The node to be inserted.
 	 */
-	public void maxHeapify(int i) {
-		int l = left(i);
-		int r = right(i);
-		int largest;
-		if (l < size && data[l] > data[i]) {
-			largest = l;
-		} else {
-			largest = i;
-		}
-		if (r < size && data[r] > data[largest]) {
-			largest = r;
-		}
-		if (largest != i) {
-			int temp = data[i];
-			data[i] = data[largest];
-			data[largest] = temp;
-			maxHeapify(largest);
-		}
-	}
+	void insert(Node newNode);
 
 	/**
-	 * Adjust the minimum sub-heap to maintain its properties.
+	 * Delete a node from the heap.
 	 *
-	 * @param i The root index of the sub-heap.
+	 * @param node The node to be deleted.
 	 */
-	public void minHeapify(int i) {
-		int l = left(i);
-		int r = right(i);
-		int smallest;
-		if (l < size && data[l] < data[i]) {
-			smallest = l;
-		} else {
-			smallest = i;
-		}
-		if (r < size && data[r] < data[smallest]) {
-			smallest = r;
-		}
-		if (smallest != i) {
-			int temp = data[i];
-			data[i] = data[smallest];
-			data[smallest] = temp;
-			minHeapify(smallest);
-		}
-	}
-
-	/**
-	 * Get the index of the parent node.
-	 *
-	 * @param i The index of the given node.
-	 * @return The index of the parent node.
-	 */
-	public int parent(int i) {
-		return (i - 1) / 2;
-	}
-
-	/**
-	 * Get the index of the left child node.
-	 *
-	 * @param i The index of the given node.
-	 * @return The index of the left child node.
-	 */
-	public int left(int i) {
-		return 2 * i + 1;
-	}
-
-	/**
-	 * Get the index of the right child node.
-	 *
-	 * @param i The index of the given node.
-	 * @return The index of the right child node.
-	 */
-	public int right(int i) {
-		return 2 * (i + 1);
-	}
-
-	/**
-	 * Underlying array data
-	 */
-	public int[] data;
-
-	/**
-	 * The number of elements in this heap.
-	 */
-	public int size;
-
-	/**
-	 * The capacity of this heap.
-	 */
-	public int capacity;
+	void delete(Node node);
 
 }

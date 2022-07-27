@@ -1,28 +1,31 @@
 /**
- * Copyright 2020 jingedawang
+ * Copyright 2022 jingedawang
  */
 package sort;
 
-import container.Heap;
+import container.BinaryHeap;
 import utils.ArrayPrinter;
 import utils.ArrayGenerator;
 
 /**
- * <h3>Heap sort algorithm</h3>
+ * Heap sort algorithm.
+ *
+ * This sort algorithm is implemented with {@link BinaryHeap}.
  */
 public class HeapSort implements Sort {
 
 	/**
-	 * Test code.
+	 * Demo code.
 	 */
 	public static void main(String[] args) {
 		int[] arr = ArrayGenerator.fixedArray();
-//		int[] arr = ArrayGenerator.randomArray(20, 20);
+		System.out.println("Original array:");
 		ArrayPrinter.print(arr);
 
 		Sort sort = new HeapSort();
 		sort.sort(arr);
-
+		System.out.println();
+		System.out.println("Sorted by heap sort:");
 		ArrayPrinter.print(arr);
 	}
 
@@ -33,13 +36,9 @@ public class HeapSort implements Sort {
 	 */
 	@Override
 	public void sort(int[] arr) {
-		Heap heap = Heap.buildMaxHeap(arr);
-		for (int i = heap.data.length - 1; i >= 1; i--) {
-			int temp = heap.data[i];
-			heap.data[i] = heap.data[0];
-			heap.data[0] = temp;
-			heap.size--;
-			heap.maxHeapify(0);
+		BinaryHeap heap = new BinaryHeap(arr, true);
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = heap.pop();
 		}
 	}
 
